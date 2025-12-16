@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For You 💕</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 25px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff4f8b;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: #ff4f8b;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    button:hover {
+      background: #ff2f73;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255, 79, 139, 0.6);
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1 id="title"></h1>
+  <p id="message"></p>
+  <button onclick="toggleMusic()">🎶 Play / Pause Music</button>
+  <div class="footer">Made with love — just for you 💗</div>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_1e9e3d0a41.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const herName = "Jorja";
+
+  const morningMessages = [
+    "Good morning my love 🤍 I hope today treats you gently and fills your heart with peace.",
+    "Hey beautiful 🌸 Wake up knowing you are deeply loved and endlessly appreciated.",
+    "Morning baby 💕 I hope today brings you smiles you didn’t expect.",
+    "Good morning sunshine ☀️ Just a reminder that you are my favorite person."
+  ];
+
+  const nightMessages = [
+    "Good night my love 🌙 I hope you sleep peacefully wrapped in my thoughts.",
+    "Sweet dreams baby 🤍 Rest knowing you are cherished beyond words.",
+    "Good night beautiful 💕 May tomorrow be kind to you.",
+    "Sleep well my heart 🌸 I’ll be loving you even in my dreams."
+  ];
+
+  const hour = new Date().getHours();
+  const isMorning = hour >= 5 && hour < 18;
+
+  const messages = isMorning ? morningMessages : nightMessages;
+  const todayIndex = Math.floor(
+    (Date.now() - new Date("2024-01-01")) / (1000 * 60 * 60 * 24)
+  );
+
+  document.getElementById("title").textContent =
+    (isMorning ? "Good Morning " : "Good Night ") + herName + " 💖";
+
+  document.getElementById("message").textContent =
+    messages[todayIndex % messages.length];
+
+  const music = document.getElementById("music");
+  function toggleMusic() {
+    if (music.paused) music.play();
+    else music.pause();
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = (16 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 500);
+</script>
+
+</body>
+</html>
